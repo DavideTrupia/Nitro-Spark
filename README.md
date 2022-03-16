@@ -91,7 +91,7 @@ bash-4.3# $SPARK_HOME/bin/spark-shell --conf spark.executor.memory=2G --conf spa
 ```
 From there we can run any example Spark Job and see the jobs via http://localhost:4040 
 
-####Spark Glossary
+#### Spark Glossary
 
-####Docker Glossary
+#### Docker Glossary
 
