@@ -90,3 +90,8 @@ docker run -it --name spark-submit --network spark-network -p 4040:4040 submit /
 bash-4.3# $SPARK_HOME/bin/spark-shell --conf spark.executor.memory=2G --conf spark.executor.cores=1
 ```
 From there we can run any example Spark Job and see the jobs via http://localhost:4040 
+
+####Spark Glossary
+
+####Docker Glossary
+
