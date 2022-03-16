@@ -26,10 +26,10 @@ Specifically the scenario is the following:
 6) Output.
 
 #### Tutorial used for setting up Docker
-Link to tutorial:
+Reference tutorial: https://github.com/sdesilva26/docker-spark/blob/master/TUTORIAL.md
 ##### Summary of the tutorial:
-The goal of this tutorial is ....
-In achieving the larger goal this tutorial will serve as a building block for ...
+The goal of this tutorial is to familiarize with Docker and Apache Spark in order to understand the next steps to achieve the ultimate goal(s) of the project.
+In achieving the larger goal this tutorial will serve as a building block for the docker files composition and Spark setup in the machine.
 
 Main steps involved:
  - [ ] Install java8, scala
@@ -39,3 +39,19 @@ Main steps involved:
  - [ ] ... worker ...
  - [ ] ...Next steps ...
  - [ ] Tested locally
+
+
+#### Running Spark cluster inside Docker containers
+First things first make sure a Docker **deamon** is running in the machine and then start building the dockerfiles created that will setup the container images accordingly:
+```
+docker build -f DockerfileSetup -t setup .
+docker build -f DockerfileMaster -t master .
+docker build -f DockerfileWorker -t worker .
+docker build -f DockerfileSubmit -t submit .
+```
+Then run the containers from the images:
+```
+docker run -dit --name spark-worker --entrypoint /bin/bash worker
+docker run -dit --name spark-master --entrypoint /bin/bash master
+```
+Make sure at the end they started correctly by listing the current docker containers ```docker container ls```. The expected output should be two containers.
