@@ -26,7 +26,7 @@ Specifically the scenario is the following:
 6) Output.
 
 #### Tutorial used for setting up Docker
-Reference tutorial: https://github.com/sdesilva26/docker-spark/blob/master/TUTORIAL.md
+References: https://github.com/sdesilva26/docker-spark/blob/master/TUTORIAL.md and https://docs.docker.com/network/network-tutorial-standalone/
 ##### Summary of the tutorial:
 The goal of this tutorial is to familiarize with Docker and Apache Spark in order to understand the next steps to achieve the ultimate goal(s) of the project.
 In achieving the larger goal this tutorial will serve as a building block for the docker files composition and Spark setup in the machine.
