@@ -50,6 +50,7 @@ docker build -f DockerfileWorker -t worker .
 docker build -f DockerfileSubmit -t submit .
 ```
 Now we need to create the user-defined bridge network in order to attach our containers that will be running in the background.
+(Note that these images are published using ``docker push``, later will be needed, in fact for simplicity we can just ``docker pull davide0110/spark_master`` to just pull the image that we have created directly. For now this part we considered everything from scratch)
 ```
 docker network create --driver bridge spark-network
 ```
@@ -91,7 +92,27 @@ bash-4.3# $SPARK_HOME/bin/spark-shell --conf spark.executor.memory=2G --conf spa
 ```
 From there we can run any example Spark Job and see the jobs via http://localhost:4040 
 
+#### Running Spark cluster inside Docker containers on multiple EC2 instances
+First thing needed is to be able to run instances on the AWS management console. Once the access is establish simply launch three instances that will serve as the worker, master and driver nodes. Connect to each one and run the containers as before. This time we create a Docker daemon to be the swarm manager:
+```
+docker swarm init
+```
+This should give a command where we need to check via the AWS console that the private ip matches the one of the instance .
+After running the ```docker swarm join``` we can now create a overlay-network that will have lined up the two containers of the two machines:
+```
+docker network create --driver overlay --attachable spark-overlay-net
+```
+Now we can conclude by running the containers over the network created, on the machines accordingly.
+
 #### Spark Glossary
-
+Spark master, Spark worker(s), Spark driver, Spark submit, Spark jobs UI, 
 #### Docker Glossary
+Docker pull/push, 
+Docker images, 
+Docker container, 
+Docker network create, 
+Overlay-network,
+Docker swarm,
 
+#### AWS Glossary
+c4 instances, t2.micro instances
