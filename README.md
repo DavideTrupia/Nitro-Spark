@@ -102,6 +102,8 @@ After running the ```docker swarm join``` we can now create a overlay-network th
 ```
 docker network create --driver overlay --attachable spark-overlay-net
 ```
+Make sure the incoming and oucoming ports are open otherwise cannot bind the swarm deamon manager. Particularly creating a security group on AWS management console we can add inbounding rules and outbunding rules enabling the ports necessary for the connection.
+
 Now we can conclude by running the containers over the network created, on the machines accordingly.
 
 #### Spark Glossary
