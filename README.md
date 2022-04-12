@@ -106,8 +106,11 @@ Make sure the incoming and oucoming ports are open otherwise cannot bind the swa
 
 Now we can conclude by running the containers over the network created, on the machines accordingly.
 
-#### Spark Glossary
-Spark master, Spark worker(s), Spark driver, Spark submit, Spark jobs UI, 
+#### Spark Glossary!
+[image](https://user-images.githubusercontent.com/43402963/162626351-f9f3dd51-36a6-4fc7-a443-6350e84a1f0a.png)
+Spark master,
+Spark worker(s),
+Spark driver, Spark submit, Spark jobs UI, 
 #### Docker Glossary
 Docker pull/push, 
 Docker images, 
