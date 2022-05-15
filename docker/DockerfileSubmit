@@ -11,3 +11,6 @@ RUN pip install -r requirements.txt
 EXPOSE 4040 8888
 
 WORKDIR /home/
+
+COPY ../benchmarking/tpcds/tpcds_gen_data.scala .
+COPY /tmp/tpcds-kit/ .
