@@ -1,5 +1,5 @@
 # AWS Nitro in Apache Spark
-### Leveraging AWS Nitro for secure distributed data processing
+## Leveraging AWS Nitro for secure distributed data processing
 In today’s world security is one of the major concerns in the development of dependable distributed systems,
 different solutions have been adopted by adding privacy-preserving mechanisms such as classic
 cryptography that were however causing either limits in expressiveness, affecting performance, or causing
@@ -20,11 +20,11 @@ AWS Nitro EC2 instance
 #### Tutorial used for setting up Docker
 References: https://github.com/sdesilva26/docker-spark/blob/master/TUTORIAL.md and https://docs.docker.com/network/network-tutorial-standalone/
 
-##### Summary of the tutorial:
+#### Summary of the tutorial:
 The goal of this tutorial is to familiarize with Docker and Apache Spark in order to understand the next steps to achieve the ultimate goal(s) of the project.
 In achieving the larger goal the first part will serve as a building block for the docker files composition and Spark setup in the machine.
 
-### Running Spark cluster inside Docker containers
+## Running Spark cluster inside Docker containers
 First things first make sure a Docker **deamon** is running in the machine and then start building the dockerfiles created that will setup the container images accordingly:
 ```
 docker build -f DockerfileSetup -t setup .
@@ -79,7 +79,7 @@ bash-4.3# $SPARK_HOME/bin/spark-shell --conf spark.executor.memory=2G --conf spa
 ```
 From there we can run any example Spark Job and see the jobs via http://localhost:4040 
 
-### Running Spark cluster inside Docker containers on multiple EC2 instances
+## Running Spark cluster inside Docker containers on multiple EC2 instances
 First thing needed is to be able to run instances on the AWS management console. Once the access is establish simply launch three instances that will serve as the worker, master and driver nodes. Connect to each one and run the containers as before. This time we create a Docker daemon to be the swarm manager:
 ```
 docker swarm init
@@ -123,6 +123,10 @@ A spark-submit command can also be used too submit a job to the spark cluster. F
       examples/src/main/python/pi.py \
       1000
 ```
+## Benchmarking
+Benchmarking is the process to assess the performance of a product, this is done normally by running some tests and trials to validate the result obtained. This will be carried out by using TPC benchmarks, a non-profit organization that provides performance data. In particular TPC-DS
+### TPCDS
+TPC-DS is the de-facto industry standard benchmark for measuring the performance of decision support solutions including, but not limited to, Big Data systems. The current version is v2. It models several generally applicable aspects of a decision support system, including queries and data maintenance. Although the underlying business model of TPC-DS is a retail product supplier, the database schema, data population, queries, data maintenance model and implementation rules have been designed to be broadly representative of modern decision support systems. [[1]](https://www.tpc.org/information/benchmarks5.asp)
 
 ### Spark Glossary
 ![image](https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2018/09/Picture6-2-768x447.png)
@@ -131,7 +135,7 @@ Spark master: In the master node the driver program is contained. Moreover the m
 
 Spark driver: The driver program drives our application. In particular a driver program can be the code that we wrote or using the spark-shell, it will behave as one. Inside the driver program a Spark Context is initialized.
 
-Spark context: The Spark Context can be considered as the gateway to any functionality; its main use in the process is taking care of the various jobs. In fact a job is split into multiple tasks that are then assigned to a worker. Therefore as soon as a RDD is initialized in the spark context it can be distributed across various nodes and then it can be cached there. [[1]](https://www.edureka.co/blog/spark-architecture/#:~:text=Scala%20and%20Python.-,Spark%20Architecture%20Overview,Resilient%20Distributed%20Dataset%20(RDD))
+Spark context: The Spark Context can be considered as the gateway to any functionality; its main use in the process is taking care of the various jobs. In fact a job is split into multiple tasks that are then assigned to a worker. Therefore as soon as a RDD is initialized in the spark context it can be distributed across various nodes and then it can be cached there. [[2]](https://www.edureka.co/blog/spark-architecture/#:~:text=Scala%20and%20Python.-,Spark%20Architecture%20Overview,Resilient%20Distributed%20Dataset%20(RDD))
 
 Spark worker(s): The Spark worker, also referenced as slaves, only duty is to execute the tasks assigned. Once the work is computed the result goes back to the spark context. An important notice is that increasing the number of workers will increasing the number of divisions of the jobs into more partitions making available more parallelization over multiple systems.
 
