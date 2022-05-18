@@ -116,13 +116,19 @@ val file = sc.textFile("/tmp/data")
 val counts = file.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
 counts.count()
 ```
-A spark-submit command can also be used too submit a job to the spark cluster. For example:
+A spark-submit command can also be used to submit a job to the spark cluster. For example:
 ```
 ./bin/spark-submit \
       --master spark://spark-master:7077 \
       examples/src/main/python/pi.py \
       1000
 ```
+![Schermata 2022-05-18 alle 14 18 37_preview_rev_1](https://user-images.githubusercontent.com/43402963/169038099-ef157eff-54e0-42b8-9599-d67d2727c286.png)
+
+
+
+
+
 ## Benchmarking
 Benchmarking is the process to assess the performance of a product, this is done normally by running some tests and trials to validate the result obtained. This will be carried out by using TPC benchmarks, a non-profit organization that provides performance data. In particular TPC-DS
 ### TPCDS
@@ -131,7 +137,7 @@ TPC-DS is the de-facto industry standard benchmark for measuring the performance
 ### Spark Glossary
 ![image](https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2018/09/Picture6-2-768x447.png)
 
-Spark master: In the master node the driver program is contained. Moreover the master node serves as resources management and configurationmaking them available to the spark driver.
+Spark master: In the master node the driver program is contained. Moreover the master node serves as resources management and configuration making them available to the spark driver.
 
 Spark driver: The driver program drives our application. In particular a driver program can be the code that we wrote or using the spark-shell, it will behave as one. Inside the driver program a Spark Context is initialized.
 
