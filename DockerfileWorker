@@ -1,4 +1,4 @@
-FROM setup
+FROM davide0110/spark_setup
 
 ENV MASTER_CONTAINER_NAME=spark-master
 ENV CORES=3
