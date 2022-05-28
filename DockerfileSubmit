@@ -12,5 +12,5 @@ EXPOSE 4040 8888
 
 WORKDIR /home/
 
-COPY ./benchmarking/tpcds/tpcds_gen_data.scala .
-COPY ./tmp/* ./
+COPY ./benchmarking .
+COPY ./tmp .
