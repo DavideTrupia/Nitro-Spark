@@ -1,16 +1,13 @@
-FROM davide0110/spark_setup
+FROM davide0110/spark_setup:latest
 
 ENV MASTER_CONTAINER_NAME=spark-master
 ENV SPARK_EXECUTOR_MEMORY=6G
 ENV SPARK_EXECUTOR_CORES=3
 
-#Install requirements
-COPY ./resources/requirements.txt .
-RUN pip install -r requirements.txt
-
 EXPOSE 4040 8888
 
 WORKDIR /home/
 
-COPY ./benchmarking .
-COPY ./tmp .
+
+# BENCHMARKING
+RUN git clone https://github.com/ssavvides/tpch-spark.git
