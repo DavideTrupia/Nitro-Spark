@@ -10,6 +10,7 @@ ENV SCALA_VERSION=2.12.5
 ENV SCALA_HOME=/usr/share/scala
 ENV SPARK_HOME=/spark
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
+ENV HADOOP_HOME=/hadoop
 ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.7-src.zip
 
 
@@ -49,7 +50,25 @@ RUN tar -xzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
 RUN wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/${HADOOP_VERSION}.0/hadoop-azure-${HADOOP_VERSION}.0.jar -P $SPARK_HOME/jars/ && \
     wget https://repo1.maven.org/maven2/com/microsoft/azure/azure-storage/8.6.3/azure-storage-8.6.3.jar -P $SPARK_HOME/jars/
 
+# Install Hadoop
+RUN wget https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}.1/hadoop-${HADOOP_VERSION}.1.tar.gz && \
+    tar -xzf hadoop-${HADOOP_VERSION}.1.tar.gz && \
+    mv hadoop-${HADOOP_VERSION}.1 /hadoop && \
+    export PATH=${HADOOP_HOME}.1/bin:$PATH
+
+
+# Install sbt
+# (REF. https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html)
+RUN apt-get update && \
+apt-get install apt-transport-https curl gnupg -yqq && \
+echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list && \
+echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list && \
+curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/scalasbt-release.gpg --import && \
+chmod 644 /etc/apt/trusted.gpg.d/scalasbt-release.gpg && \
+apt-get update && \
+apt-get install sbt
+
 # BENCHMARKING
-COPY ./benchmarking ./
-COPY ./tmp ./
+RUN git clone https://github.com/ssavvides/tpch-spark.git
+
 
