@@ -43,4 +43,33 @@ A spark-submit command can also be used to submit a job to the spark cluster. Fo
       examples/src/main/python/pi.py \
       1000
 ```
+
 ![Schermata 2022-05-18 alle 14 18 37_preview_rev_1](https://user-images.githubusercontent.com/43402963/169038099-ef157eff-54e0-42b8-9599-d67d2727c286.png)
+## HDFS
+(Ref. https://www.novixys.com/blog/setup-apache-hadoop-cluster-aws-ec2/)
+Master --> namenode
+
+In namenode modify:
+```
+etc/hadoop/core-site.xml
+etc/hadoop/hdfs-site.xml
+etc/hadoop/mapred-site.xml
+etc/hadoop/yarn-site.xml
+etc/hadoop/masters
+~/.ssh/config
+```
+Add ```etc/hadoop/masters``` and ```etc/hadoop/slaves``` in which they will contain the public dns to be accessed.
+
+
+In all nodes modify:
+```
+etc/hadoop/hdfs-site.xml
+```
+Afer the setup from namenode we can just:
+```
+/bin/hdfs namenode -format
+/sbin/start-dfs.sh
+/sbin/start-yarn.sh
+/sbin/mr-jobhistory-daemon.sh start
+```
+And we just have accessess to the webUI at port 50070 
