@@ -63,6 +63,7 @@ Now in all nodes:
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
 
+
 In namenode modify:
 ```
 etc/hadoop/core-site.xml
@@ -78,6 +79,7 @@ Add ```etc/hadoop/masters``` and ```etc/hadoop/slaves``` in which they will cont
 In all nodes modify:
 ```
 etc/hadoop/hdfs-site.xml
+/etc/hosts
 ```
 
 Afer the setup from namenode we can just:
