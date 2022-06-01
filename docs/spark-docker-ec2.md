@@ -45,9 +45,23 @@ A spark-submit command can also be used to submit a job to the spark cluster. Fo
 ```
 
 ![Schermata 2022-05-18 alle 14 18 37_preview_rev_1](https://user-images.githubusercontent.com/43402963/169038099-ef157eff-54e0-42b8-9599-d67d2727c286.png)
+
 ## HDFS
-(Ref. https://www.novixys.com/blog/setup-apache-hadoop-cluster-aws-ec2/)
+
 Master --> namenode
+HDFS is a distributed file system that is of much need at this point in time. If you run on a cluster, you will need some form of shared file system and here hdfs resides.
+####Setup an Hadoop Cluster
+(Ref. https://www.novixys.com/blog/setup-apache-hadoop-cluster-aws-ec2/)
+A crucial part in the process is to set a passwordless connection between all nodes.
+In namenode run ```ssh-keygen``` and don't insert anything in the command lines to leave it as default. Now copy the file generated inside __/home/ubuntu/.ssh/id_rsa.pub__ and put it in ALL nodes. Using the command line:
+
+```
+scp -i <key.pem> /home/ubuntu/.ssh/id_rsa.pub ubuntu@<nodeDNS>:/home/ubuntu/.ssh/id_rsa.pub
+```
+Now in all nodes:
+```
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+```
 
 In namenode modify:
 ```
@@ -65,6 +79,7 @@ In all nodes modify:
 ```
 etc/hadoop/hdfs-site.xml
 ```
+
 Afer the setup from namenode we can just:
 ```
 /bin/hdfs namenode -format
@@ -72,4 +87,26 @@ Afer the setup from namenode we can just:
 /sbin/start-yarn.sh
 /sbin/mr-jobhistory-daemon.sh start
 ```
+By running ```jps``` we should expect all the services running with at least 3 lines containing Jps, NodeManager and DataNode.
+Stop all services if needed:
+```
+/sbin/stop-all.sh
+```
+
 And we just have accessess to the webUI at port 50070 
+
+Whenever you run all this commands make sure to have the correct ownership of the folders in all the machines ```chown ubuntu:ubuntu -R <hadoop_folder>``` beacuse it may result in a lot of "Permission Denied" errors in the whole process.
+####Hdfs File Uploading
+To **put** a file inside our hdfs:
+```
+hadoop fs -mkdir /data
+```
+This will create a directory inside our hdfs. Next you can upload the requested local files without any issue:
+```
+hdfs dfs -put <file_name> hdfs://<namenodeDNS>:<port>/<dir>
+```
+For example: ```hdfs dfs -put nation.tbl hdfs://ec2-18-234-227-83.compute-1.amazonaws.com:9000/data```
+
+Now we should have the file across all nodes in the cluster.
+
+
