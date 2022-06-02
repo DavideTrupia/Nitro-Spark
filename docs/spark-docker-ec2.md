@@ -116,3 +116,5 @@ In datanode we can now list the files in the file system by:
 ```
 hdfs dfs -ls /data
 ```
+We should expect the file that we just uploaded in the output of ls command, for example:
+![WhatsApp Image 2022-06-02 at 12 19 34](https://user-images.githubusercontent.com/43402963/171610706-7835257f-7800-4eca-ab66-dfb2aff71ab6.jpg)
