@@ -8,6 +8,6 @@ EXPOSE 4040 8888
 
 WORKDIR /home/
 
-
+RUN adduser ubuntu && usermod -aG sudo ubuntu 
 # BENCHMARKING
 RUN git clone https://github.com/ssavvides/tpch-spark.git
