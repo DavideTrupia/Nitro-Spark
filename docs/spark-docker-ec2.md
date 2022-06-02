@@ -47,8 +47,6 @@ A spark-submit command can also be used to submit a job to the spark cluster. Fo
 ![Schermata 2022-05-18 alle 14 18 37_preview_rev_1](https://user-images.githubusercontent.com/43402963/169038099-ef157eff-54e0-42b8-9599-d67d2727c286.png)
 
 ## HDFS
-
-Master --> namenode
 HDFS is a distributed file system that is of much need at this point in time. If you run on a cluster, you will need some form of shared file system and here hdfs resides.
 ####Setup an Hadoop Cluster
 (Ref. https://www.novixys.com/blog/setup-apache-hadoop-cluster-aws-ec2/)
@@ -62,7 +60,6 @@ Now in all nodes:
 ```
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
-
 
 In namenode modify:
 ```
@@ -98,8 +95,16 @@ Stop all services if needed:
 And we just have accessess to the webUI at port <nnode>:50070 
 
 Whenever you run all this commands make sure to have the correct ownership of the folders in all the machines ```chown ubuntu:ubuntu -R <hadoop_folder>``` beacuse it may result in a lot of "Permission Denied" errors in the whole process.
-
-####Hdfs File Uploading
+      
+##### Possible Errors scenarios
+1) Make sure to set correctly the env variable $HADOOP_CONF_DIR that is used when started the dfs as ```sbin/start-dfs.sh``` and other variables used in the system. (Check by ```printenv``` that all variables paths map to the correct paths in your environment)
+2) In ```/etc/hosts``` add mapping between dns and private-ip addresses.
+3) Check that the security group, in the AWS console, for each instances running, have inbound and outbound rules set to **All traffic**.
+4) Make sure that the passwordless ssh connection is enabled for all nodes, in case not redo the ssh-keygen step described above to a fresh restart.
+5) Check that the hadoop version in all nodes are consistent.
+6) Most of the times files give permission denied, in that case just ```sudo chown ubuntu:ubuntu -R <folder>``` to make sure everything can be accessible by the cluster.
+      
+#### Hdfs File Uploading
 To **put** a file inside our hdfs:
 ```
 hadoop fs -mkdir /data
