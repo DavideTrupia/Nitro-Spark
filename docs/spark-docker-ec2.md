@@ -87,7 +87,7 @@ Afer the setup from namenode we can just:
 /bin/hdfs namenode -format
 /sbin/start-dfs.sh
 /sbin/start-yarn.sh
-/sbin/mr-jobhistory-daemon.sh start
+/sbin/mr-jobhistory-daemon.sh start historyserver
 ```
 By running ```jps``` we should expect all the services running with at least 3 lines containing Jps, NodeManager and DataNode.
 Stop all services if needed:
@@ -95,9 +95,10 @@ Stop all services if needed:
 /sbin/stop-all.sh
 ```
 
-And we just have accessess to the webUI at port 50070 
+And we just have accessess to the webUI at port <nnode>:50070 
 
 Whenever you run all this commands make sure to have the correct ownership of the folders in all the machines ```chown ubuntu:ubuntu -R <hadoop_folder>``` beacuse it may result in a lot of "Permission Denied" errors in the whole process.
+
 ####Hdfs File Uploading
 To **put** a file inside our hdfs:
 ```
@@ -107,8 +108,11 @@ This will create a directory inside our hdfs. Next you can upload the requested 
 ```
 hdfs dfs -put <file_name> hdfs://<namenodeDNS>:<port>/<dir>
 ```
-For example: ```hdfs dfs -put nation.tbl hdfs://ec2-18-234-227-83.compute-1.amazonaws.com:9000/data```
+For example: ```hdfs dfs -put customer.tbl hdfs://ec2-18-234-227-83.compute-1.amazonaws.com:9000/data```
 
 Now we should have the file across all nodes in the cluster.
 
-
+In datanode we can now list the files in the file system by:
+```
+hdfs dfs -ls /data
+```
